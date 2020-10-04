@@ -11,19 +11,21 @@ public class FileManager {
 
 		int option = 0;
 		while (option != 3) {
-			System.out.println("WELCOME TO FILE MANAGER" + "Developed by GIRISH ");
+			System.out.println(
+					"		***WELCOME TO FILE MANAGER APPLICATION***" + "\n	  		 -Developed by GIRISH ");
 			try {
 				Scanner s = new Scanner(System.in);
-				//s.close();
+				// s.close();
+				System.out.println("Press option to Dive-in");
 				System.out.println("1) Show files");
 				System.out.println("2) File Manager");
 				System.out.println("3) EXIT");
 				option = s.nextInt();
-				//s.close();
+				// s.close();
 				switch (option) {
 				case 1: {
 					int i = 1;
-					File dir = new File("//home/girishshastri7g/Files/");
+					File dir = new File("//home//girishshastri7g//Files//");
 					String[] files = dir.list();
 					if (files.length > 0) {
 						Arrays.sort(files);
@@ -35,6 +37,7 @@ public class FileManager {
 
 					} else {
 						System.out.println("No files present in the folder");
+						System.out.println("Add files in File manage to view files");
 					}
 					break;
 
@@ -43,15 +46,15 @@ public class FileManager {
 					int subOption = -1;
 					while (subOption != 4) {
 						Scanner s1 = new Scanner(System.in);
-						//s1.close();
+						// s1.close();
 						try {
 							System.out.println("2.1) Add files");
 							System.out.println("2.2) Delete files");
 							System.out.println("2.3) Search files");
-							System.out.println("2.4) EXIT TO MAIN MENU");
+							System.out.println("2.4) Go back to MAIN MENU");
 							System.out.println("\nPlease select the option 1-4 to Add/Delete/Search/Exit");
 							subOption = s1.nextInt();
-							//s1.close();
+							// s1.close();
 							switch (subOption) {
 							case 1: {
 								System.out.println("Please enter file name to add");
@@ -81,11 +84,11 @@ public class FileManager {
 							case 3: {
 								System.out.println("Please enter a file name to search");
 								String fileName = s1.next();
-								File dir = new File("//home/girishshastri7g/Files/");
+								File dir = new File("//home//girishshastri7g//Files//");
 								String[] files = dir.list();
 								int searchedIndex = Arrays.binarySearch(files, fileName);
 								if (searchedIndex >= 0) {
-									System.out.println("Filehas been found at Index " + searchedIndex);
+									System.out.println("File has been found at position " + searchedIndex);
 								} else {
 									System.out.println("File Not Found");
 								}
@@ -123,17 +126,26 @@ public class FileManager {
 	}
 
 	private static boolean deleteFile(String fileName) {
-		File file = new File("//home/girishshastri7g/Files/ " + fileName);
+		File file = new File("//home/girishshastri7g/Files/" + fileName);
 		return file.delete();
 	}
 
 	private static int createFile(String fileName) throws IOException {
-		File file = new File("//home/girishshastri7g/Files/ " + fileName);
+		File file = new File("//home/girishshastri7g/Files/" + fileName);
 		if (file.exists()) {
 			return -1;
 		} else {
 			file.createNewFile();
 			return 1;
+		}
+	}
+
+	public static boolean fileExistsCaseInsensitive(String path) {
+		try {
+			File file = new File("//home/girishshastri7g/Files/");
+			return file.exists() || !file.getCanonicalFile().getName().equals(file.getName());
+		} catch (IOException e) {
+			return false;
 		}
 	}
 
